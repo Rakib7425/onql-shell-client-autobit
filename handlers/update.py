@@ -37,10 +37,14 @@ class Update:
             cmd = command.split(" on ")
             data = cmd [0]
             query = cmd[1]
+            try:
+                records = json.loads(data)
+            except Exception as e:
+                raise ValueError(f"Invalid JSON in update data: {e}")
             payload = {
                 "db":db,
                 "table":table,
-                "records":data,
+                "records":records,
                 "query":query
             }
         payload["protopass"] = self.protopass
